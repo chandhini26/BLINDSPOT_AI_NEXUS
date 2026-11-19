@@ -34,18 +34,23 @@ from .report import create_pdf
 
 app = FastAPI(title="BlindSpot AI", version="1.1.0")
 
+
+# ---------------- CORS CONFIGURATION ----------------
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
         "http://127.0.0.1:5173",
         "http://localhost:5174",
-        "http://127.0.0.1:5174"
+        "http://127.0.0.1:5174",
+        "https://blindspot-ai-nexus.pages.dev"
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
 )
+
 
 password_hasher = PasswordHash.recommended()
 bearer_scheme = HTTPBearer()
@@ -264,7 +269,6 @@ def project_chat(
         raise HTTPException(400, "Enter a message.")
 
     try:
-        # Retrieve evidence only from this project
         documents = retrieve(question, pid, 4)
 
         if documents:
@@ -279,7 +283,6 @@ def project_chat(
         else:
             evidence = "No matching project evidence was found."
 
-        # Get recent conversation history
         history = get_chat_history(
             user["id"], pid, limit=8
         )
@@ -307,10 +310,8 @@ def project_chat(
             "Answer the user's question using the available evidence."
         )
 
-        # Generate normal text answer
         answer = ask_text(system, prompt)
 
-        # Save both messages under the authenticated user and project
         save_chat_message(
             user["id"], pid, "user", question
         )
