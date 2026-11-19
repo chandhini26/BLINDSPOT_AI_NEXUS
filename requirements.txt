@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+python-multipart
+chromadb
+sentence-transformers
+langchain-text-splitters
+langgraph
+pymupdf
+python-docx
+reportlab
+openai
+python-dotenv
