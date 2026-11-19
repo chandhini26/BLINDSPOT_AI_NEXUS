@@ -7,7 +7,7 @@ load_dotenv(BASE_DIR / ".env")
 
 NEXUS_API_KEY = os.getenv("NEXUS_API_KEY", "").strip()
 NEXUS_BASE_URL = os.getenv("NEXUS_BASE_URL", "https://nexusapi.navigatelabs.ai").strip().rstrip("/")
-NEXUS_MODEL = os.getenv("NEXUS_MODEL", "gemini-2.5-flash").strip()
+NEXUS_MODEL = os.getenv("NEXUS_MODEL", "nova-micro").strip()
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
 CHROMA_DIR = Path(os.getenv("CHROMA_DIR", str(BASE_DIR / "chroma_db")))
 UPLOAD_DIR = Path(os.getenv("UPLOAD_DIR", str(BASE_DIR / "uploads")))
